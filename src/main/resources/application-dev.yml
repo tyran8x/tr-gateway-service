@@ -13,7 +13,7 @@ spring:
   main:
     web-application-type: reactive
   application:
-    name: gateway-service
+    name: tr-gateway-service
   config:
     import:
       - "optional:configserver:http://localhost:8888"
@@ -48,43 +48,234 @@ spring:
             - Path=/v1/core/**
           filters:
             - RewritePath=/v1/core/(?<path>.*), /$\{path}
-        #- id: notification-service
-        #  uri: lb://notification-service
-        #  predicates:
-        #    - Path=/v1/notification/**
-        #  filters:
-        #    - RewritePath=/v1/notification/(?<path>.*), /$\{path}
-        - id: doanhnghiep-service
-          uri: lb://doanhnghiep-service
-          predicates:
-            - Path=/v1/doanhnghiep/**
-          filters:
-            - RewritePath=/v1/doanhnghiep/(?<path>.*), /$\{path}
-        - id: dvc-service
-          uri: lb://dvc-service
-          predicates:
-            - Path=/v1/dvc/**
-          filters:
-            - RewritePath=/v1/dvc/(?<path>.*), /$\{path}
-        - id: tr-baocao-service
-          uri: lb://tr-baocao-service
-          predicates:
-            - Path=/v1/baocao/**
-          filters:
-            - RewritePath=/v1/baocao/(?<path>.*), /$\{path}
         - id: tr-core-service
           uri: lb://tr-core-service
           predicates:
             - Path=/v2/core/**
           filters:
             - RewritePath=/v2/core/(?<path>.*), /$\{path}
+        - id: tr-dm-service
+          uri: lb://tr-dm-service
+          predicates:
+            - Path=/v2/dm/**
+          filters:
+            - RewritePath=/v2/dm/(?<path>.*), /$\{path}
+        - id: tr-sgtvt-service
+          uri: lb://tr-sgtvt-service
+          predicates:
+            - Path=/v1/sgtvt/**
+          filters:
+            - RewritePath=/v1/sgtvt/(?<path>.*), /$\{path}
+        - id: tr-baocao-service
+          uri: lb://tr-baocao-service
+          predicates:
+            - Path=/v1/bc/**
+          filters:
+            - RewritePath=/v1/bc/(?<path>.*), /$\{path}
+        - id: quanlycho-service
+          uri: lb://quanlycho-service
+          predicates:
+            - Path=/v1/quanlycho/**
+          filters:
+            - RewritePath=/v1/quanlycho/(?<path>.*), /$\{path}
+        - id: qlc-hoavang-service
+          uri: lb://qlc-hoavang-service
+          predicates:
+            - Path=/v1/qlc/**
+          filters:
+            - RewritePath=/v1/qlc/(?<path>.*), /$\{path}
+        - id: stp-service
+          uri: lb://stp-service
+          predicates:
+            - Path=/v1/stp/**
+          filters:
+            - RewritePath=/v1/stp/(?<path>.*), /$\{path}
+        - id: stttt-service
+          uri: lb://stttt-service
+          predicates:
+            - Path=/v1/stttt/**
+          filters:
+            - RewritePath=/v1/stttt/(?<path>.*), /$\{path}
+        - id: skhcn-service
+          uri: lb://skhcn-service
+          predicates:
+            - Path=/v1/skhcn/**
+          filters:
+            - RewritePath=/v1/skhcn/(?<path>.*), /$\{path}
+        - id: syt-service
+          uri: lb://syt-service
+          predicates:
+            - Path=/v1/syt/**
+          filters:
+            - RewritePath=/v1/syt/(?<path>.*), /$\{path}
+        - id: bqlkcnckcn-service
+          uri: lb://bqlkcnckcn-service
+          predicates:
+            - Path=/v1/bqlkcnckcn/**
+          filters:
+            - RewritePath=/v1/bqlkcnckcn/(?<path>.*), /$\{path}
+        - id: sgd-service
+          uri: lb://sgd-service
+          predicates:
+            - Path=/v1/sgd/**
+          filters:
+            - RewritePath=/v1/sgd/(?<path>.*), /$\{path}
+        - id: sct-service
+          uri: lb://sct-service
+          predicates:
+            - Path=/v1/sct/**
+          filters:
+            - RewritePath=/v1/sct/(?<path>.*), /$\{path}
+        - id: notification-service
+          uri: lb://notification-service
+          predicates:
+            - Path=/v1/notification/**
+          filters:
+            - RewritePath=/v1/notification/(?<path>.*), /$\{path}
+        - id: demo-stttt-service
+          uri: lb://demo-stttt-service
+          predicates:
+            - Path=/v1/demo/**
+          filters:
+            - RewritePath=/v1/demo/(?<path>.*), /$\{path}
+        - id: sgd-tracuu-service
+          uri: lb://sgd-tracuu-service
+          predicates:
+            - Path=/v1/tracuu/**
+          filters:
+            - RewritePath=/v1/tracuu/(?<path>.*), /$\{path}
+        - id: gis-service
+          uri: lb://gis-service
+          predicates:
+            - Path=/v1/gis/**
+          filters:
+            - RewritePath=/v1/gis/(?<path>.*), /$\{path}
+        - id: sldtbxh-service
+          uri: lb://sldtbxh-service
+          predicates:
+            - Path=/v1/sldtbxh/**
+          filters:
+            - RewritePath=/v1/sldtbxh/(?<path>.*), /$\{path}
+        - id: danhgiacntt-service
+          uri: lb://danhgiacntt-service
+          predicates:
+            - Path=/v1/danhgiacntt/**
+          filters:
+            - RewritePath=/v1/danhgiacntt/(?<path>.*), /$\{path}
+        - id: giamsat-service
+          uri: lb://giamsatcachly-service
+          predicates:
+            - Path=/v1/giamsat/**
+          filters:
+            - RewritePath=/v1/giamsat/(?<path>.*), /$\{path}
+        - id: stp-tgpl-service
+          uri: lb://stp-tgpl-service
+          predicates:
+            - Path=/v1/stp-tgpl/**
+          filters:
+            - RewritePath=/v1/stp-tgpl/(?<path>.*), /$\{path}
+        - id: linhnnx-service
+          uri: lb://linhnnx-service
+          predicates:
+            - Path=/v1/linhnnx/**
+          filters:
+            - RewritePath=/v1/linhnnx/(?<path>.*), /$\{path}
+        - id: phucpn-service
+          uri: lb://phucpn-service
+          predicates:
+            - Path=/v1/phucpn/**
+          filters:
+            - RewritePath=/v1/phucpn/(?<path>.*), /$\{path}
+        - id: cbccvc-service
+          uri: lb://cbccvc-service
+          predicates:
+            - Path=/v1/cbccvc/**
+          filters:
+            - RewritePath=/v1/cbccvc/(?<path>.*), /$\{path}
+        - id: qlcv-service
+          uri: lb://qlcv-service
+          predicates:
+            - Path=/v1/qlcv/**
+          filters:
+            - RewritePath=/v1/qlcv/(?<path>.*), /$\{path}
+        - id: tr-dvc-service
+          uri: lb://tr-dvc-service
+          predicates:
+            - Path=/v1/dvc/**
+          filters:
+            - RewritePath=/v1/dvc/(?<path>.*), /$\{path}
+        - id: qlhd-service
+          uri: lb://qlhd-service
+          predicates:
+            - Path=/v1/qlhd/**
+          filters:
+            - RewritePath=/v1/qlhd/(?<path>.*), /$\{path}
+        - id: hdnd-service
+          uri: lb://hdnd-service
+          predicates:
+            - Path=/v1/hdnd/**
+          filters:
+            - RewritePath=/v1/hdnd/(?<path>.*), /$\{path}
+        - id: qlnp-service
+          uri: lb://qlnp-service
+          predicates:
+            - Path=/v1/qlnp/**
+          filters:
+            - RewritePath=/v1/qlnp/(?<path>.*), /$\{path}
+        - id: cttd-service
+          uri: lb://cttd-service
+          predicates:
+            - Path=/v1/cttd/**
+          filters:
+            - RewritePath=/v1/cttd/(?<path>.*), /$\{path}
+        - id: hssv-service
+          uri: lb://hssv-service
+          predicates:
+            - Path=/v1/hssv/**
+          filters:
+            - RewritePath=/v1/hssv/(?<path>.*), /$\{path}
+        - id: ts-service
+          uri: lb://ts-service
+          predicates:
+            - Path=/v1/ts/**
+          filters:
+            - RewritePath=/v1/ts/(?<path>.*), /$\{path}
+        - id: tchv-service
+          uri: lb://tchv-service
+          predicates:
+            - Path=/v1/tchv/**
+          filters:
+            - RewritePath=/v1/tchv/(?<path>.*), /$\{path}
+        - id: tr-doanhnghiep-service
+          uri: lb://tr-doanhnghiep-service
+          predicates:
+            - Path=/v1/doanhnghiep/**
+          filters:
+            - RewritePath=/v1/doanhnghiep/(?<path>.*), /$\{path}
+        - id: dev-service
+          uri: lb://dev-service
+          predicates:
+            - Path=/v1/dev/**
+          filters:
+            - RewritePath=/v1/dev/(?<path>.*), /$\{path}
+        - id: qlnp-dev-service
+          uri: lb://qlnp-dev-service
+          predicates:
+            - Path=/dev/qlnp/**
+          filters:
+            - RewritePath=/dev/qlnp/(?<path>.*), /$\{path}
+        - id: ltls
+          uri: http://10.196.160.188:8080/api
+          predicates:
+            - Path=/v1/ltls/**
+          filters:
+            - RewritePath=/v1/ltls/(?<path>.*), /$\{path}
         - id: openapi
           uri: http://localhost:${server.port}
           predicates:
             - Path=/v3/api-docs/**
           filters:
             - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
-
 
 springdoc:
   swagger-ui:
@@ -95,18 +286,94 @@ springdoc:
         url: /v3/api-docs/v1/dm
       - name: core
         url: /v3/api-docs/v1/core
-      #- name: notification
-      #  url: /v3/api-docs/v1/notification
+      - name: tr-core
+        url: /v3/api-docs/v2/core
+      - name: tr-dm
+        url: /v3/api-docs/v2/dm
+      - name: skhcn
+        url: /v3/api-docs/v1/skhcn
+      - name: stttt
+        url: /v3/api-docs/v1/stttt
+      - name: skhcn-detai
+        url: /v3/api-docs/v3/skhcn-detai
+      - name: sgd
+        url: /v3/api-docs/v1/sgd
+      - name: tracuu
+        url: /v3/api-docs/v1/tracuu
+      - name: stp
+        url: /v3/api-docs/v1/stp
+      - name: syt
+        url: /v3/api-docs/v1/syt
+      - name: tr-sgtvt
+        url: /v3/api-docs/v1/sgtvt
+      - name: sct
+        url: /v3/api-docs/v1/sct
+      - name: danhgiacntt
+        url: /v3/api-docs/v1/danhgiacntt
+      - name: sldtbxh
+        url: /v3/api-docs/v1/sldtbxh
+      - name: bqlkcnckcn
+        url: /v3/api-docs/v1/bqlkcnckcn
+      - name: quanlycho
+        url: /v3/api-docs/v1/quanlycho
+      - name: gis
+        url: /v3/api-docs/v1/gis
+      - name: giamsat
+        url: /v3/api-docs/v1/giamsat
+      - name: notification
+        url: /v3/api-docs/v1/notification
+      - name: stp-tgpl
+        url: /v3/api-docs/v1/stp-tgpl
+      - name: cbccvc
+        url: /v3/api-docs/v1/cbccvc
+      - name: qlcv
+        url: /v3/api-docs/v1/qlcv
+      - name: dvc
+        url: /v3/api-docs/v1/dvc
+      - name: qlhd
+        url: /v3/api-docs/v1/qlhd
+      - name: hdnd
+        url: /v3/api-docs/v1/hdnd
+      - name: qlnp
+        url: /v3/api-docs/v1/qlnp
+      - name: qlnp-dev
+        url: /v3/api-docs/dev/qlnp
+      - name: phucpn
+        url: /v3/api-docs/v1/phucpn
+      - name: linhnnx
+        url: /v3/api-docs/v1/linhnnx
+      - name: qlc
+        url: /v3/api-docs/v1/qlc
       - name: cttd
         url: /v3/api-docs/v1/cttd
+      - name: hssv
+        url: /v3/api-docs/v1/hssv
+      - name: ts
+        url: /v3/api-docs/v1/ts
+      - name: tchv
+        url: /v3/api-docs/v1/tchv
+      - name: tr-doanhnghiep
+        url: /v3/api-docs/v1/doanhnghiep
+      - name: dev
+        url: /v3/api-docs/v1/dev
+      - name: baocao
+        url: /v3/api-docs/v1/baocao
 
     filter: true
     disable-swagger-default-url: true
     urlsPrimaryName: dm
     config-url: /v3/api-docs/swagger-config
+    path: /swagger-ui.html
+
 
 logging:
   level:
-    vn.tr: @logging.level@
+    vn.tr: trace
     org.springframework: warn
   config: classpath:logback.xml
+  charset:
+    console: UTF-8
+  file:
+    name: /opt/logs/tr-gateway-service/sys-console.log
+  pattern:
+    console: '%red(%d{yyyy-MM-dd HH:mm:ss}) %green([%thread]) %highlight(%-5level) %boldMagenta(%logger{36}%n) - %msg%n'
