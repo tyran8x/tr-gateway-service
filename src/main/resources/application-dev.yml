@@ -258,6 +258,12 @@ spring:
             - Path=/v1/dev/**
           filters:
             - RewritePath=/v1/dev/(?<path>.*), /$\{path}
+        - id: tr-sntptnt-service
+          uri: lb://tr-sntptnt-service
+          predicates:
+            - Path=/v1/sntptnt/**
+          filters:
+            - RewritePath=/v1/sntptnt/(?<path>.*), /$\{path}
         - id: qlnp-dev-service
           uri: lb://qlnp-dev-service
           predicates:
@@ -358,6 +364,8 @@ springdoc:
         url: /v3/api-docs/v1/dev
       - name: baocao
         url: /v3/api-docs/v1/baocao
+      - name: snnptnt
+        url: /v3/api-docs/v1/snnptnt
 
     filter: true
     disable-swagger-default-url: true
