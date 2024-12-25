@@ -66,6 +66,12 @@ spring:
             - Path=/v1/sgtvt/**
           filters:
             - RewritePath=/v1/sgtvt/(?<path>.*), /$\{path}
+        - id: tr-sct-service
+          uri: lb://tr-sct-service
+          predicates:
+            - Path=/v1/sct/**
+          filters:
+            - RewritePath=/v1/sct/(?<path>.*), /$\{path}
         - id: tr-baocao-service
           uri: lb://tr-baocao-service
           predicates:
@@ -120,12 +126,6 @@ spring:
             - Path=/v1/sgd/**
           filters:
             - RewritePath=/v1/sgd/(?<path>.*), /$\{path}
-        - id: sct-service
-          uri: lb://sct-service
-          predicates:
-            - Path=/v1/sct/**
-          filters:
-            - RewritePath=/v1/sct/(?<path>.*), /$\{path}
         - id: notification-service
           uri: lb://notification-service
           predicates:
@@ -258,12 +258,12 @@ spring:
             - Path=/v1/dev/**
           filters:
             - RewritePath=/v1/dev/(?<path>.*), /$\{path}
-        - id: tr-sntptnt-service
-          uri: lb://tr-sntptnt-service
+        - id: tr-snnptnt-service
+          uri: lb://tr-snnptnt-service
           predicates:
-            - Path=/v1/sntptnt/**
+            - Path=/v1/snnptnt/**
           filters:
-            - RewritePath=/v1/sntptnt/(?<path>.*), /$\{path}
+            - RewritePath=/v1/snnptnt/(?<path>.*), /$\{path}
         - id: qlnp-dev-service
           uri: lb://qlnp-dev-service
           predicates:
@@ -312,7 +312,7 @@ springdoc:
         url: /v3/api-docs/v1/syt
       - name: tr-sgtvt
         url: /v3/api-docs/v1/sgtvt
-      - name: sct
+      - name: tr-sct
         url: /v3/api-docs/v1/sct
       - name: danhgiacntt
         url: /v3/api-docs/v1/danhgiacntt

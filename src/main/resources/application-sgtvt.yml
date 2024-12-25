@@ -1,0 +1,135 @@
+server:
+  port: ${PORT:8000}
+info:
+  component: Api Gateway Service
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8061/eureka
+    registerWithEureka: true
+    fetch-registry: true
+
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: tr-gateway-service
+  config:
+    import:
+      - "optional:configserver:http://localhost:8888"
+  cloud:
+    config:
+      uri: http://localhost:8888
+      username: huydq
+      password: abc@123
+    gateway:
+      metrics:
+        enabled: true
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: uaa-service
+          uri: lb://uaa-service
+          predicates:
+            - Path=/v1/auth/**
+          filters:
+            - RewritePath=/v1/auth/(?<path>.*), /$\{path}
+        - id: dm-sys-service
+          uri: lb://dm-sys-service
+          predicates:
+            - Path=/v1/dm/**
+          filters:
+            - RewritePath=/v1/dm/(?<path>.*), /$\{path}
+        - id: core-sys-service
+          uri: lb://core-sys-service
+          predicates:
+            - Path=/v1/core/**
+          filters:
+            - RewritePath=/v1/core/(?<path>.*), /$\{path}
+        - id: tr-core-service
+          uri: lb://tr-core-service
+          predicates:
+            - Path=/v2/core/**
+          filters:
+            - RewritePath=/v2/core/(?<path>.*), /$\{path}
+        - id: tr-dm-service
+          uri: lb://tr-dm-service
+          predicates:
+            - Path=/v2/dm/**
+          filters:
+            - RewritePath=/v2/dm/(?<path>.*), /$\{path}
+        - id: tr-sgtvt-service
+          uri: lb://tr-sgtvt-service
+          predicates:
+            - Path=/v1/sgtvt/**
+          filters:
+            - RewritePath=/v1/sgtvt/(?<path>.*), /$\{path}
+        - id: tr-baocao-service
+          uri: lb://tr-baocao-service
+          predicates:
+            - Path=/v1/bc/**
+          filters:
+            - RewritePath=/v1/bc/(?<path>.*), /$\{path}
+        - id: tr-dvc-service
+          uri: lb://tr-dvc-service
+          predicates:
+            - Path=/v1/dvc/**
+          filters:
+            - RewritePath=/v1/dvc/(?<path>.*), /$\{path}
+        - id: tr-doanhnghiep-service
+          uri: lb://tr-doanhnghiep-service
+          predicates:
+            - Path=/v1/doanhnghiep/**
+          filters:
+            - RewritePath=/v1/doanhnghiep/(?<path>.*), /$\{path}
+        - id: openapi
+          uri: http://localhost:${server.port}
+          predicates:
+            - Path=/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: auth
+        url: /v3/api-docs/v1/auth
+      - name: dm
+        url: /v3/api-docs/v1/dm
+      - name: core
+        url: /v3/api-docs/v1/core
+      - name: tr-core
+        url: /v3/api-docs/v2/core
+      - name: tr-dm
+        url: /v3/api-docs/v2/dm
+      - name: tr-sgtvt
+        url: /v3/api-docs/v1/sgtvt
+      - name: notification
+        url: /v3/api-docs/v1/notification
+      - name: dvc
+        url: /v3/api-docs/v1/dvc
+      - name: tr-doanhnghiep
+        url: /v3/api-docs/v1/doanhnghiep
+      - name: baocao
+        url: /v3/api-docs/v1/baocao
+
+    filter: true
+    disable-swagger-default-url: true
+    urlsPrimaryName: dm
+    config-url: /v3/api-docs/swagger-config
+    path: /swagger-ui.html
+
+
+logging:
+  level:
+    vn.tr: trace
+    org.springframework: warn
+  config: classpath:logback.xml
+  charset:
+    console: UTF-8
+  file:
+    name: /opt/logs/tr-gateway-service/sys-console.log
+  pattern:
+    console: '%red(%d{yyyy-MM-dd HH:mm:ss}) %green([%thread]) %highlight(%-5level) %boldMagenta(%logger{36}%n) - %msg%n'
