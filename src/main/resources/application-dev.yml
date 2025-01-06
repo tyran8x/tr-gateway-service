@@ -210,8 +210,8 @@ spring:
             - Path=/v1/qlhd/**
           filters:
             - RewritePath=/v1/qlhd/(?<path>.*), /$\{path}
-        - id: hdnd-service
-          uri: lb://hdnd-service
+        - id: tr-hdnd-service
+          uri: lb://tr-hdnd-service
           predicates:
             - Path=/v1/hdnd/**
           filters:
@@ -249,9 +249,9 @@ spring:
         - id: tr-doanhnghiep-service
           uri: lb://tr-doanhnghiep-service
           predicates:
-            - Path=/v1/doanhnghiep/**
+            - Path=/v1/dn/**
           filters:
-            - RewritePath=/v1/doanhnghiep/(?<path>.*), /$\{path}
+            - RewritePath=/v1/dn/(?<path>.*), /$\{path}
         - id: dev-service
           uri: lb://dev-service
           predicates:
@@ -338,7 +338,7 @@ springdoc:
         url: /v3/api-docs/v1/dvc
       - name: qlhd
         url: /v3/api-docs/v1/qlhd
-      - name: hdnd
+      - name: tr-hdnd
         url: /v3/api-docs/v1/hdnd
       - name: qlnp
         url: /v3/api-docs/v1/qlnp
@@ -359,7 +359,7 @@ springdoc:
       - name: tchv
         url: /v3/api-docs/v1/tchv
       - name: tr-doanhnghiep
-        url: /v3/api-docs/v1/doanhnghiep
+        url: /v3/api-docs/v1/dn
       - name: dev
         url: /v3/api-docs/v1/dev
       - name: baocao

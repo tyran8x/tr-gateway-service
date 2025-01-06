@@ -1,0 +1,87 @@
+server:
+  port: ${PORT:8000}
+info:
+  component: Api Gateway Service
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8061/eureka
+    registerWithEureka: true
+    fetch-registry: true
+
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: tr-gateway-service
+  config:
+    import:
+      - "optional:configserver:http://localhost:8888"
+  cloud:
+    config:
+      uri: http://localhost:8888
+      username: huydq
+      password: abc@123
+    gateway:
+      metrics:
+        enabled: true
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: tr-core-service
+          uri: lb://tr-core-service
+          predicates:
+            - Path=/v2/core/**
+          filters:
+            - RewritePath=/v2/core/(?<path>.*), /$\{path}
+        - id: tr-dm-service
+          uri: lb://tr-dm-service
+          predicates:
+            - Path=/v2/dm/**
+          filters:
+            - RewritePath=/v2/dm/(?<path>.*), /$\{path}
+        - id: tr-hdnd-service
+          uri: lb://tr-hdnd-service
+          predicates:
+            - Path=/v1/hdnd/**
+          filters:
+            - RewritePath=/v1/sgtvt/(?<path>.*), /$\{path}
+        - id: openapi
+          uri: http://localhost:${server.port}
+          predicates:
+            - Path=/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: tr-core
+        url: /v3/api-docs/v2/core
+      - name: tr-dm
+        url: /v3/api-docs/v2/dm
+      - name: tr-hdnd
+        url: /v3/api-docs/v1/hdnd
+      - name: notification
+        url: /v3/api-docs/v1/notification
+
+    filter: true
+    disable-swagger-default-url: true
+    urlsPrimaryName: tr-hdnd
+    config-url: /v3/api-docs/swagger-config
+    path: /swagger-ui.html
+
+
+logging:
+  level:
+    vn.tr: trace
+    org.springframework: warn
+  config: classpath:logback.xml
+  charset:
+    console: UTF-8
+  file:
+    name: /opt/logs/tr-gateway-service/sys-console.log
+  pattern:
+    console: '%red(%d{yyyy-MM-dd HH:mm:ss}) %green([%thread]) %highlight(%-5level) %boldMagenta(%logger{36}%n) - %msg%n'
