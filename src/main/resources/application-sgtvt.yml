@@ -84,6 +84,12 @@ spring:
             - Path=/v1/doanhnghiep/**
           filters:
             - RewritePath=/v1/doanhnghiep/(?<path>.*), /$\{path}
+        - id: zalo
+          uri: http://localhost
+          predicates:
+            - Path=/zalo_verifierHC3aBPRERXDmsUSdfTPI02NOymp9hYDNCZOs.html
+          filters:
+            - RewritePath=/(?<path>.*), /$\{path}
         - id: openapi
           uri: http://localhost:${server.port}
           predicates:
