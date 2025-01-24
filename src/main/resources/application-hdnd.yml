@@ -47,7 +47,7 @@ spring:
           predicates:
             - Path=/v1/hdnd/**
           filters:
-            - RewritePath=/v1/sgtvt/(?<path>.*), /$\{path}
+            - RewritePath=/v1/hdnd/(?<path>.*), /$\{path}
         - id: openapi
           uri: http://localhost:${server.port}
           predicates:
