@@ -11,7 +11,7 @@ eureka:
 
 spring:
   profiles:
-    active: "hdnd"
+    active: "dev"
   main:
     web-application-type: reactive
   application:
