@@ -126,8 +126,8 @@ spring:
             - Path=/v1/sgd/**
           filters:
             - RewritePath=/v1/sgd/(?<path>.*), /$\{path}
-        - id: notification-service
-          uri: lb://notification-service
+        - id: tr-notification-service
+          uri: lb://tr-notification-service
           predicates:
             - Path=/v1/notification/**
           filters:
@@ -180,18 +180,24 @@ spring:
             - Path=/v1/linhnnx/**
           filters:
             - RewritePath=/v1/linhnnx/(?<path>.*), /$\{path}
-        - id: phucpn-service
-          uri: lb://phucpn-service
+        - id: gianglt-service
+          uri: lb://gianglt-service
           predicates:
-            - Path=/v1/phucpn/**
+            - Path=/v1/gianglt/**
           filters:
-            - RewritePath=/v1/phucpn/(?<path>.*), /$\{path}
-        - id: cbccvc-service
-          uri: lb://cbccvc-service
+            - RewritePath=/v1/gianglt/(?<path>.*), /$\{path}
+        - id: lolv-service
+          uri: lb://lolv-service
           predicates:
-            - Path=/v1/cbccvc/**
+            - Path=/v1/lolv/**
           filters:
-            - RewritePath=/v1/cbccvc/(?<path>.*), /$\{path}
+            - RewritePath=/v1/lolv/(?<path>.*), /$\{path}
+        - id: haind-service
+          uri: lb://haind-service
+          predicates:
+            - Path=/v1/haind/**
+          filters:
+            - RewritePath=/v1/haind/(?<path>.*), /$\{path}
         - id: qlcv-service
           uri: lb://qlcv-service
           predicates:
@@ -270,12 +276,12 @@ spring:
             - Path=/dev/qlnp/**
           filters:
             - RewritePath=/dev/qlnp/(?<path>.*), /$\{path}
-        - id: ltls
-          uri: http://10.196.160.188:8080/api
-          predicates:
-            - Path=/v1/ltls/**
-          filters:
-            - RewritePath=/v1/ltls/(?<path>.*), /$\{path}
+        #        - id: ltls
+        #          uri: http://10.196.160.188:8080/api
+        #          predicates:
+        #            - Path=/v1/ltls/**
+        #          filters:
+        #            - RewritePath=/v1/ltls/(?<path>.*), /$\{path}
         - id: openapi
           uri: http://localhost:${server.port}
           predicates:
@@ -326,7 +332,7 @@ springdoc:
         url: /v3/api-docs/v1/gis
       - name: giamsat
         url: /v3/api-docs/v1/giamsat
-      - name: notification
+      - name: tr-notification
         url: /v3/api-docs/v1/notification
       - name: stp-tgpl
         url: /v3/api-docs/v1/stp-tgpl

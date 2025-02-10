@@ -64,8 +64,8 @@ springdoc:
         url: /v3/api-docs/v2/dm
       - name: tr-hdnd
         url: /v3/api-docs/v1/hdnd
-      - name: notification
-        url: /v3/api-docs/v1/notification
+      - name: NotificationEmail
+        url: /v3/api-docs/v1/NotificationEmail
 
     filter: true
     disable-swagger-default-url: true
