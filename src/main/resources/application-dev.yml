@@ -350,8 +350,8 @@ springdoc:
         url: /v3/api-docs/v1/qlnp
       - name: qlnp-dev
         url: /v3/api-docs/dev/qlnp
-      - name: phucpn
-        url: /v3/api-docs/v1/phucpn
+      - name: gianglt
+        url: /v3/api-docs/v1/gianglt
       - name: linhnnx
         url: /v3/api-docs/v1/linhnnx
       - name: qlc

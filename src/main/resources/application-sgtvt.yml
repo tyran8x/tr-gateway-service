@@ -112,7 +112,7 @@ springdoc:
         url: /v3/api-docs/v2/dm
       - name: tr-sgtvt
         url: /v3/api-docs/v1/sgtvt
-      - name: notification
+      - name: tr-notification
         url: /v3/api-docs/v1/notification
       - name: dvc
         url: /v3/api-docs/v1/dvc
