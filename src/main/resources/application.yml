@@ -11,11 +11,11 @@ eureka:
 
 spring:
   profiles:
-    active: "dev"
+    active: "sgtvt"
   main:
     web-application-type: reactive
   application:
-    name: gateway-service
+    name: tr-gateway-service
   #  config:
   #    import:
   #      - "optional:configserver:http://localhost:8888"

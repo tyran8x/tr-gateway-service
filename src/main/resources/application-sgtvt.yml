@@ -84,6 +84,12 @@ spring:
             - Path=/v1/doanhnghiep/**
           filters:
             - RewritePath=/v1/doanhnghiep/(?<path>.*), /$\{path}
+        - id: tr-notification-service
+          uri: lb://tr-notification-service
+          predicates:
+            - Path=/v1/notification/**
+          filters:
+            - RewritePath=/v1/notification/(?<path>.*), /$\{path}
         - id: zalo
           uri: http://localhost
           predicates:

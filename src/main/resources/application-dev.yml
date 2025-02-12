@@ -276,12 +276,6 @@ spring:
             - Path=/dev/qlnp/**
           filters:
             - RewritePath=/dev/qlnp/(?<path>.*), /$\{path}
-        #        - id: ltls
-        #          uri: http://10.196.160.188:8080/api
-        #          predicates:
-        #            - Path=/v1/ltls/**
-        #          filters:
-        #            - RewritePath=/v1/ltls/(?<path>.*), /$\{path}
         - id: openapi
           uri: http://localhost:${server.port}
           predicates:
@@ -306,8 +300,6 @@ springdoc:
         url: /v3/api-docs/v1/skhcn
       - name: stttt
         url: /v3/api-docs/v1/stttt
-      - name: skhcn-detai
-        url: /v3/api-docs/v3/skhcn-detai
       - name: sgd
         url: /v3/api-docs/v1/sgd
       - name: tracuu
@@ -336,8 +328,6 @@ springdoc:
         url: /v3/api-docs/v1/notification
       - name: stp-tgpl
         url: /v3/api-docs/v1/stp-tgpl
-      - name: cbccvc
-        url: /v3/api-docs/v1/cbccvc
       - name: qlcv
         url: /v3/api-docs/v1/qlcv
       - name: dvc
@@ -370,7 +360,7 @@ springdoc:
         url: /v3/api-docs/v1/dev
       - name: baocao
         url: /v3/api-docs/v1/baocao
-      - name: snnptnt
+      - name: tr-snnptnt
         url: /v3/api-docs/v1/snnptnt
 
     filter: true
