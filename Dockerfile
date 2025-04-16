@@ -1,19 +1,31 @@
-# stage 1
-# Start with a base image containing Java runtime
-FROM openjdk:21 AS builder
-WORKDIR api-gateway-service
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} api-gateway-service.jar
-RUN java -Djarmode=layertools -jar api-gateway-service.jar extract
+FROM maven:3.9.9-eclipse-temurin-21-alpine AS builder
 
-# the second stage of our build will copy the extracted layers
-FROM openjdk:21
-WORKDIR api-gateway-service
-COPY --from=builder api-gateway-service/dependencies/ ./
-COPY --from=builder api-gateway-service/spring-boot-loader/ ./
-COPY --from=builder api-gateway-service/snapshot-dependencies/ ./
-COPY --from=builder api-gateway-service/application/ ./
+WORKDIR /app
+COPY settings.xml .
+COPY pom.xml .
+RUN mvn -B -s settings.xml dependency:go-offline
+COPY src ./src
+RUN mvn -B -s settings.xml package -DskipTests \
+ && java -Djarmode=layertools -jar target/*.jar extract --destination target/extracted
 
-EXPOSE 8061
+# -------- RUNTIME --------
+FROM eclipse-temurin:21-jre-alpine
+ENV APP_HOME=/app
+WORKDIR $APP_HOME
 
-ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
+# Tạo user non-root có home (tránh lỗi ghi file tạm, tốt cho Spring)
+RUN adduser -D -h /home/appuser -s /bin/sh appuser
+
+# Tạo thư mục log theo chuẩn, cấp quyền cho appuser (rất quan trọng!)
+RUN mkdir -p /opt/logs && chown -R appuser:appuser /opt/logs $APP_HOME
+
+# Copy layers Spring Boot
+COPY --from=builder --chown=appuser:appuser /app/target/extracted/dependencies/ ./
+COPY --from=builder --chown=appuser:appuser /app/target/extracted/spring-boot-loader/ ./
+COPY --from=builder --chown=appuser:appuser /app/target/extracted/snapshot-dependencies/ ./
+COPY --from=builder --chown=appuser:appuser /app/target/extracted/application/ ./
+
+EXPOSE 8000
+USER appuser
+
+ENTRYPOINT ["java", "org.springframework.boot.loader.launch.JarLauncher"]
