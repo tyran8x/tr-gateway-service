@@ -1,35 +1,36 @@
 server:
-  port: ${PORT:8000}
+  port: ${SERVER_PORT:8000}
 info:
-  component: Api Gateway Service
+  component: API Gateway Service
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8061/eureka
-    registerWithEureka: true
-    fetch-registry: true
-
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8061/eureka/}
+    registerWithEureka: ${EUREKA_CLIENT_REGISTERWITHEUREKA:true}
+    fetch-registry: ${EUREKA_CLIENT_FETCHREGISTRY:true}
 spring:
-  profiles:
-    active: "sgtvt"
   main:
-    web-application-type: reactive
+    web-application-type: reactive # Bắt buộc cho Spring Cloud Gateway
   application:
     name: tr-gateway-service
-  #  config:
-  #    import:
-  #      - "optional:configserver:http://localhost:8888"
+  config:
+    import: "optional:configserver:${SPRING_CONFIG_IMPORT_URI:http://localhost:8888}"
   cloud:
     config:
-      uri: http://localhost:8888
-      username: huydq
-      password: abc@123
+      username: ${SPRING_CLOUD_CONFIG_USERNAME:huydq}
+      password: ${SPRING_CLOUD_CONFIG_PASSWORD}
+      fail-fast: ${SPRING_CLOUD_CONFIG_FAIL_FAST:false}
+      retry:
+        max-attempts: ${SPRING_CLOUD_CONFIG_RETRY_MAX_ATTEMPTS:6}
+        initial-interval: ${SPRING_CLOUD_CONFIG_RETRY_INITIAL_INTERVAL:1000}
+        max-interval: ${SPRING_CLOUD_CONFIG_RETRY_MAX_INTERVAL:2000}
+        multiplier: ${SPRING_CLOUD_CONFIG_RETRY_MULTIPLIER:1.1}
     gateway:
       metrics:
-        enabled: true
+        enabled: ${GATEWAY_METRICS_ENABLED:true}
       discovery:
         locator:
-          enabled: true
+          enabled: ${GATEWAY_DISCOVERY_LOCATOR_ENABLED:true}
           lower-case-service-id: true
       routes:
         - id: uaa-service
@@ -38,25 +39,24 @@ spring:
             - Path=/v1/auth/**
           filters:
             - RewritePath=/v1/auth/(?<path>.*), /$\{path}
+
         - id: dm-sys-service
           uri: lb://dm-sys-service
           predicates:
             - Path=/v1/dm/**
           filters:
             - RewritePath=/v1/dm/(?<path>.*), /$\{path}
+
         - id: core-sys-service
           uri: lb://core-sys-service
           predicates:
             - Path=/v1/core/**
           filters:
             - RewritePath=/v1/core/(?<path>.*), /$\{path}
-        - id: openapi
-          uri: http://localhost:${server.port}
-          predicates:
-            - Path=/v3/api-docs/**
-          filters:
-            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
-
+  boot:
+    admin:
+      client:
+        url: ${SPRING_BOOT_ADMIN_CLIENT_URL:http://localhost:9090}
 
 springdoc:
   swagger-ui:
@@ -67,14 +67,32 @@ springdoc:
         url: /v3/api-docs/v1/dm
       - name: core
         url: /v3/api-docs/v1/core
-
     filter: true
     disable-swagger-default-url: true
     urlsPrimaryName: dm
-    config-url: /v3/api-docs/swagger-config
 
 logging:
   level:
-    vn.tr: @logging.level@
-    org.springframework: warn
+    # Ưu tiên biến môi trường LOGGING_LEVEL_VN_TR, mặc định INFO
+    vn.tr: ${LOGGING_LEVEL_VN_TR:INFO}
+    org.springframework: ${LOGGING_LEVEL_SPRINGFRAMEWORK:WARN} # Mặc định WARN cho Spring
+    # Thêm các level khác nếu cần
+  file:
+    # Quan trọng: Đường dẫn này PHẢI KHỚP với đường dẫn trong thẻ <file>
+    # của appender 'file_info' trong logback.xml.
+    # Sử dụng các placeholder giống như cách Spring Boot phân giải chúng.
+    # ${LOG_PATH:/opt/logs} -> Ưu tiên biến môi trường LOG_PATH, nếu không có thì dùng /opt/logs
+    # ${spring.application.name:app} -> Lấy tên ứng dụng từ Spring, nếu không có thì dùng 'app'
+    name: ${LOG_PATH:/opt/logs}/${spring.application.name:app}/sys-info.log
   config: classpath:logback.xml
+
+# --- Actuator Endpoints Configuration ---
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, gateway, env, configprops, logfile, refresh
+  endpoint:
+    health:
+      show-details: when_authorized # Chỉ show chi tiết health khi được ủy quyền (ví dụ: qua security)
+

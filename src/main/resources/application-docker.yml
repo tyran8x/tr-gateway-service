@@ -1,38 +1,6 @@
-server:
-  port: ${PORT:8000}
-info:
-  component: Api Gateway Service
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://mcdt-eureka:8061/eureka
-    registerWithEureka: true
-    fetch-registry: true
-
 spring:
-  main:
-    web-application-type: reactive
-  application:
-    name: tr-gateway-service
-  config:
-    import:
-      - "optional:configserver:http://mcdt-config:8888"
   cloud:
-    config:
-      uri: http://mcdt-config:8888
-      username: ${CONFIG_SERVER_USERNAME:-huydq}
-      password: ${CONFIG_SERVER_PASSWORD:-abc@123}
-      fail-fast: false # Prevent crash if Config Server is unavailable
-      retry:
-        max-attempts: 6
-        initial-interval: 1000
     gateway:
-      metrics:
-        enabled: true
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
       routes:
         - id: tr-core-service
           uri: lb://tr-core-service
@@ -49,19 +17,34 @@ spring:
         - id: tr-dvc-service
           uri: lb://tr-dvc-service
           predicates:
-            - Path=/v1/dvc/**
+            - Path=/v2/dvc/**
           filters:
-            - RewritePath=/v1/dvc/(?<path>.*), /$\{path}
-        - id: openapi
-          uri: http://localhost:${server.port}
+            - RewritePath=/v2/dvc/(?<path>.*), /$\{path}
+        - id: tr-dbpm-service
+          uri: lb://tr-dbpm-service
           predicates:
-            - Path=/v3/api-docs/**
+            - Path=/v1/dbpm/**
           filters:
-            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
-  boot:
-    admin:
-      client:
-        url: http://mcdt-monitor:8080 # Dockerized Admin server
+            - RewritePath=/v1/dbpm/(?<path>.*), /$\{path}
+        - id: tr-chungthuc-service
+          uri: lb://tr-chungthuc-service
+          predicates:
+            - Path=/v1/chungthuc/**
+          filters:
+            - RewritePath=/v1/chungthuc/(?<path>.*), /$\{path}
+        - id: tr-report-service
+          uri: lb://tr-report-service
+          predicates:
+            - Path=/v1/report/**
+          filters:
+            - RewritePath=/v1/report/(?<path>.*), /$\{path}
+        - id: tr-notification-service
+          uri: lb://tr-notification-service
+          predicates:
+            - Path=/v1/notification/**
+          filters:
+            - RewritePath=/v1/notification/(?<path>.*), /$\{path}
+
 springdoc:
   swagger-ui:
     urls:
@@ -70,14 +53,15 @@ springdoc:
       - name: tr-dm
         url: /v3/api-docs/v2/dm
       - name: tr-dvc
-        url: /v3/api-docs/v1/dvc
+        url: /v3/api-docs/v2/dvc
+      - name: tr-dbpm
+        url: /v3/api-docs/v1/dbpm
+      - name: tr-chungthuc
+        url: /v3/api-docs/v1/chungthuc
+      - name: tr-report
+        url: /v3/api-docs/v1/report
       - name: tr-notification
         url: /v3/api-docs/v1/notification
-
-    filter: true
-    disable-swagger-default-url: true
     urlsPrimaryName: tr-dvc
-    config-url: /v3/api-docs/swagger-config
-    path: /swagger-ui.html
 
 

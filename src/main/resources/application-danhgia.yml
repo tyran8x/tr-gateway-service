@@ -1,34 +1,6 @@
-server:
-  port: ${PORT:8000}
-info:
-  component: Api Gateway Service
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8061/eureka
-    registerWithEureka: true
-    fetch-registry: true
-
 spring:
-  main:
-    web-application-type: reactive
-  application:
-    name: api-gateway-service
-  config:
-    import:
-      - "optional:configserver:http://localhost:8888"
   cloud:
-    config:
-      uri: http://localhost:8888
-      username: huydq
-      password: abc@123
     gateway:
-      metrics:
-        enabled: true
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
       routes:
         - id: uaa-service
           uri: lb://uaa-service
@@ -60,12 +32,6 @@ spring:
             - Path=/v1/danhgiacntt/**
           filters:
             - RewritePath=/v1/danhgiacntt/(?<path>.*), /$\{path}
-        - id: openapi
-          uri: http://localhost:${server.port}
-          predicates:
-            - Path=/v3/api-docs/**
-          filters:
-            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
 
 
 springdoc:
@@ -81,25 +47,5 @@ springdoc:
       #  url: /v3/api-docs/v1/notification
       - name: danhgiacntt
         url: /v3/api-docs/v1/danhgiacntt
-
-    filter: true
-    disable-swagger-default-url: true
     urlsPrimaryName: dm
-    config-url: /v3/api-docs/swagger-config
 
-logging:
-  charset:
-    console: UTF-8
-  level:
-    #      org:
-    #        hibernate:
-    #          type: DEBUG
-    #        springframework:
-    #          web: DEBUG
-    ROOT: TRACE
-    vn:
-      dnict: TRACE
-  file:
-    path: /opt/logs/api
-  pattern:
-    console: '%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger.%M - %msg%n'
