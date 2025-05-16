@@ -15,19 +15,19 @@ import java.util.List;
 
 @Configuration
 public class CorsConfig {
-
+	
 	private static final String ALLOWED_METHODS = "GET, POST, PUT, DELETE, OPTIONS, PATCH, *";
 	private static final String ALLOWED_ORIGIN = "*";
 	private static final String MAX_AGE = "3600";
-
+	
 	private static final List<String> ALLOWED_HEADERS = Arrays.asList(
 			HttpHeaders.AUTHORIZATION,
 			HttpHeaders.CONTENT_TYPE,
 			"x-token",
 			"x-app-code",
 			"*"
-	);
-
+	                                                                 );
+	
 	@Bean
 	public WebFilter corsFilter() {
 		return (ServerWebExchange ctx, WebFilterChain chain) -> {
@@ -40,9 +40,10 @@ public class CorsConfig {
 				headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, Boolean.FALSE.toString());
 				headers.add(HttpHeaders.ACCESS_CONTROL_MAX_AGE, MAX_AGE);
 				headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, String.join(", ", ALLOWED_HEADERS));
+				//headers.add(SaSameUtil.SAME_TOKEN, SaSameUtil.getToken());
 			}
 			return chain.filter(ctx);
 		};
 	}
-
+	
 }
