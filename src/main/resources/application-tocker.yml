@@ -38,6 +38,12 @@ spring:
             - Path=/v1/report/**
           filters:
             - RewritePath=/v1/report/(?<path>.*), /$\{path}
+        - id: tr-danhgia-service
+          uri: lb://tr-danhgia-service
+          predicates:
+            - Path=/v1/danhgia/**
+          filters:
+            - RewritePath=/v1/danhgia/(?<path>.*), /$\{path}
         - id: tr-notification-service
           uri: lb://tr-notification-service
           predicates:
