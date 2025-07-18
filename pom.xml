@@ -11,7 +11,7 @@
     </parent>
     <artifactId>tr-gateway-service</artifactId>
     <packaging>jar</packaging>
-    <name>Api Gateway Service</name>
+    <name>tr-gateway-service</name>
     <description>Api Gateway service</description>
 
 
