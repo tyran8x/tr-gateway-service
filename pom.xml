@@ -18,7 +18,7 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
+            <artifactId>spring-cloud-starter-gateway-server-webflux</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -42,20 +42,6 @@
             <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
             <version>${springdoc.version}</version>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>cn.dev33</groupId>-->
-        <!--            <artifactId>sa-token-reactor-spring-boot3-starter</artifactId>-->
-        <!--        </dependency>-->
-
-        <!--        <dependency>-->
-        <!--            <groupId>cn.dev33</groupId>-->
-        <!--            <artifactId>sa-token-redis-jackson</artifactId>-->
-        <!--        </dependency>-->
-        <!--        -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.apache.commons</groupId>-->
-        <!--            <artifactId>commons-pool2</artifactId>-->
-        <!--        </dependency>-->
 
     </dependencies>
     <build>

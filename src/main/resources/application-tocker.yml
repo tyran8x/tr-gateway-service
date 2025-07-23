@@ -1,55 +1,57 @@
 spring:
   cloud:
     gateway:
-      routes:
-        - id: tr-core-service
-          uri: lb://tr-core-service
-          predicates:
-            - Path=/v2/core/**
-          filters:
-            - RewritePath=/v2/core/(?<path>.*), /$\{path}
-        - id: tr-dm-service
-          uri: lb://tr-dm-service
-          predicates:
-            - Path=/v2/dm/**
-          filters:
-            - RewritePath=/v2/dm/(?<path>.*), /$\{path}
-        - id: tr-dvc-service
-          uri: lb://tr-dvc-service
-          predicates:
-            - Path=/v2/dvc/**
-          filters:
-            - RewritePath=/v2/dvc/(?<path>.*), /$\{path}
-        - id: tr-dbpm-service
-          uri: lb://tr-dbpm-service
-          predicates:
-            - Path=/v1/dbpm/**
-          filters:
-            - RewritePath=/v1/dbpm/(?<path>.*), /$\{path}
-        - id: tr-chungthuc-service
-          uri: lb://tr-chungthuc-service
-          predicates:
-            - Path=/v1/chungthuc/**
-          filters:
-            - RewritePath=/v1/chungthuc/(?<path>.*), /$\{path}
-        - id: tr-report-service
-          uri: lb://tr-report-service
-          predicates:
-            - Path=/v1/report/**
-          filters:
-            - RewritePath=/v1/report/(?<path>.*), /$\{path}
-        - id: tr-danhgia-service
-          uri: lb://tr-danhgia-service
-          predicates:
-            - Path=/v1/danhgia/**
-          filters:
-            - RewritePath=/v1/danhgia/(?<path>.*), /$\{path}
-        - id: tr-notification-service
-          uri: lb://tr-notification-service
-          predicates:
-            - Path=/v1/notification/**
-          filters:
-            - RewritePath=/v1/notification/(?<path>.*), /$\{path}
+      server:
+        webflux:
+          routes:
+            - id: tr-core-service
+              uri: lb://tr-core-service
+              predicates:
+                - Path=/v2/core/**
+              filters:
+                - RewritePath=/v2/core/(?<path>.*), /$\{path}
+            - id: tr-dm-service
+              uri: lb://tr-dm-service
+              predicates:
+                - Path=/v2/dm/**
+              filters:
+                - RewritePath=/v2/dm/(?<path>.*), /$\{path}
+            - id: tr-dvc-service
+              uri: lb://tr-dvc-service
+              predicates:
+                - Path=/v2/dvc/**
+              filters:
+                - RewritePath=/v2/dvc/(?<path>.*), /$\{path}
+            - id: tr-dbpm-service
+              uri: lb://tr-dbpm-service
+              predicates:
+                - Path=/v1/dbpm/**
+              filters:
+                - RewritePath=/v1/dbpm/(?<path>.*), /$\{path}
+            - id: tr-chungthuc-service
+              uri: lb://tr-chungthuc-service
+              predicates:
+                - Path=/v1/chungthuc/**
+              filters:
+                - RewritePath=/v1/chungthuc/(?<path>.*), /$\{path}
+            - id: tr-report-service
+              uri: lb://tr-report-service
+              predicates:
+                - Path=/v1/report/**
+              filters:
+                - RewritePath=/v1/report/(?<path>.*), /$\{path}
+            - id: tr-danhgia-service
+              uri: lb://tr-danhgia-service
+              predicates:
+                - Path=/v1/danhgia/**
+              filters:
+                - RewritePath=/v1/danhgia/(?<path>.*), /$\{path}
+            - id: tr-notification-service
+              uri: lb://tr-notification-service
+              predicates:
+                - Path=/v1/notification/**
+              filters:
+                - RewritePath=/v1/notification/(?<path>.*), /$\{path}
 
 springdoc:
   swagger-ui:
