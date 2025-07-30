@@ -204,12 +204,30 @@ spring:
             - Path=/v1/qlcv/**
           filters:
             - RewritePath=/v1/qlcv/(?<path>.*), /$\{path}
-        - id: tr-dvc-service
-          uri: lb://tr-dvc-service
+        - id: tr-dvc-csdl-service
+          uri: lb://tr-dvc-csdl-service
           predicates:
             - Path=/v1/dvc/**
           filters:
             - RewritePath=/v1/dvc/(?<path>.*), /$\{path}
+        - id: tr-dvc-service
+          uri: lb://tr-dvc-service
+          predicates:
+            - Path=/v2/dvc/**
+          filters:
+            - RewritePath=/v2/dvc/(?<path>.*), /$\{path}
+        - id: tr-dbpm-service
+          uri: lb://tr-dbpm-service
+          predicates:
+            - Path=/v1/dbpm/**
+          filters:
+            - RewritePath=/v1/dbpm/(?<path>.*), /$\{path}
+        - id: report-service
+          uri: lb://report-service
+          predicates:
+            - Path=/v1/report/**
+          filters:
+            - RewritePath=/v1/report/(?<path>.*), /$\{path}
         - id: qlhd-service
           uri: lb://qlhd-service
           predicates:
@@ -270,6 +288,12 @@ spring:
             - Path=/v1/snnptnt/**
           filters:
             - RewritePath=/v1/snnptnt/(?<path>.*), /$\{path}
+        - id: tr-chungthuc-service
+          uri: lb://tr-chungthuc-service
+          predicates:
+            - Path=/v1/chungthuc/**
+          filters:
+            - RewritePath=/v1/chungthuc/(?<path>.*), /$\{path}
         - id: qlnp-dev-service
           uri: lb://qlnp-dev-service
           predicates:
@@ -330,8 +354,14 @@ springdoc:
         url: /v3/api-docs/v1/stp-tgpl
       - name: qlcv
         url: /v3/api-docs/v1/qlcv
-      - name: dvc
+      - name: tr-dvc-csdl
         url: /v3/api-docs/v1/dvc
+      - name: tr-dvc
+        url: /v3/api-docs/v2/dvc
+      - name: tr-dbpm
+        url: /v3/api-docs/v1/dbpm
+      - name: report
+        url: /v3/api-docs/v1/report
       - name: qlhd
         url: /v3/api-docs/v1/qlhd
       - name: tr-hdnd
@@ -362,6 +392,8 @@ springdoc:
         url: /v3/api-docs/v1/baocao
       - name: tr-snnptnt
         url: /v3/api-docs/v1/snnptnt
+      - name: tr-chungthuc
+        url: /v3/api-docs/v1/chungthuc
 
     filter: true
     disable-swagger-default-url: true
