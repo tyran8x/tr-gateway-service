@@ -68,7 +68,7 @@ logging:
     org.springframework: ${LOGGING_LEVEL_SPRINGFRAMEWORK:WARN}
   file:
     name: ${LOG_PATH:/opt/logs}/${spring.application.name:tr-gateway-service}/sys-info.log
-  config: classpath:logback.xml
+  config: classpath:logback-spring.xml
 
 # --- Actuator Endpoints Configuration ---
 management:

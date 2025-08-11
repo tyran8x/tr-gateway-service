@@ -406,7 +406,7 @@ logging:
   level:
     vn.tr: trace
     org.springframework: warn
-  config: classpath:logback.xml
+  config: classpath:logback-spring.xml
   charset:
     console: UTF-8
   file:
