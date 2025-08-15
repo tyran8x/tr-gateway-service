@@ -10,7 +10,7 @@ spring:
   application:
     name: tr-gateway-service
   config:
-    import: "optional:configserver:"
+    import: "optional:configserver:${SPRING_CLOUD_CONFIG_URI:http://localhost:8888}"
   cloud:
     gateway:
       server:
