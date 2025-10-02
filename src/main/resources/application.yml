@@ -36,10 +36,16 @@ spring:
                 - Path=/v1/core/**
               filters:
                 - RewritePath=/v1/core/(?<path>.*), /$\{path}
-  boot:
-    admin:
-      client:
-        url: ${SPRING_BOOT_ADMIN_CLIENT_URL:http://localhost:9090}
+            - id: tr-dvc-service
+              uri: lb://tr-dvc-service
+              predicates:
+                - Path=/v2/dvc/**
+              filters:
+                - RewritePath=/v2/dvc/(?<path>.*), /$\{path}
+#  boot:
+#    admin:
+#      client:
+#        url: ${SPRING_BOOT_ADMIN_CLIENT_URL:http://localhost:9090}
 
 springdoc:
   swagger-ui:
@@ -61,11 +67,12 @@ eureka:
   instance:
     prefer-ip-address: true
 
-
 logging:
   level:
-    vn.tr: ${LOGGING_LEVEL_VN_TR:INFO}
-    org.springframework: ${LOGGING_LEVEL_SPRINGFRAMEWORK:WARN}
+    vn.tr: ${LOGGING_LEVEL_VN_TR:DEBUG}
+    org.springframework: ${LOGGING_LEVEL_SPRINGFRAMEWORK:DEBUG}
+    reactor.netty: DEBUG
+    vn.tr.gateway: DEBUG
   file:
     name: ${LOG_PATH:/opt/logs}/${spring.application.name:tr-gateway-service}/sys-info.log
   config: classpath:logback-spring.xml

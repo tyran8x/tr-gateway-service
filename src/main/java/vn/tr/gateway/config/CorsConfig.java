@@ -1,4 +1,4 @@
-package vn.tr.config;
+package vn.tr.gateway.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
