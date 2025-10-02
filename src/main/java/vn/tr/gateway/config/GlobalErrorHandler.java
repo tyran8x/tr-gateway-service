@@ -67,7 +67,8 @@ public class GlobalErrorHandler implements ErrorWebExceptionHandler {
 	
 	private HttpStatus determineHttpStatus(Throwable ex) {
 		if (ex instanceof ResponseStatusException rse) {
-			return (HttpStatus) rse.getStatusCode();
+			// Spring Boot 3.x (Spring 6.x) sử dụng getStatusCode()
+			return HttpStatus.resolve(rse.getStatusCode().value());
 		}
 		if (ex instanceof IllegalArgumentException) {
 			return HttpStatus.BAD_REQUEST;
@@ -121,3 +122,4 @@ public class GlobalErrorHandler implements ErrorWebExceptionHandler {
 				.replace("\t", "\\t");
 	}
 }
+

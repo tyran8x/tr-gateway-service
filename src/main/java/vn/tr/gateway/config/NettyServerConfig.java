@@ -29,9 +29,21 @@ public class NettyServerConfig {
 				.doOnConnection(connection -> {
 					log.debug("New connection established, adding custom handlers");
 					
-					// Thêm handler sau HttpServerCodec để bắt lỗi decode
-					connection.addHandlerLast("malformedUriHandler", new MalformedUriHandler());
+					// Thêm handler NGAY SAU HttpServerCodec và TRƯỚC reactiveBridge
+					connection.addHandlerFirst(
+							"malformedUriHandler",
+							new MalformedUriHandler()
+					                          );
+					
+					log.debug("Added MalformedUriHandler after httpTrafficHandler");
 				})
+				// Configure custom HttpServerCodec với validation lỏng hơn
+				.httpRequestDecoder(spec -> spec
+								.maxInitialLineLength(8192)  // Tăng max length
+								.maxHeaderSize(16384)
+								.validateHeaders(true)
+								.initialBufferSize(128)
+				                   )
 				// Configure timeout
 				.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000)
 				.idleTimeout(Duration.ofSeconds(60))
@@ -41,6 +53,7 @@ public class NettyServerConfig {
 				})
 				.doOnChannelInit((observer, channel, remoteAddress) -> {
 					log.debug("Channel initialized for remote address: {}", remoteAddress);
+					log.debug("Current pipeline: {}", channel.pipeline().names());
 				});
 	}
 }
