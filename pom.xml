@@ -45,11 +45,6 @@
             <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
             <version>${springdoc.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>
