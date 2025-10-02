@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
@@ -19,7 +18,7 @@ import vn.tr.gateway.dto.ApiResponse;
 import java.nio.charset.StandardCharsets;
 
 @Component
-@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(-1)
 public class GlobalErrorHandler implements ErrorWebExceptionHandler {
 	
 	private static final Logger log = LoggerFactory.getLogger(GlobalErrorHandler.class);
