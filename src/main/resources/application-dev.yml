@@ -180,24 +180,6 @@ spring:
             - Path=/v1/linhnnx/**
           filters:
             - RewritePath=/v1/linhnnx/(?<path>.*), /$\{path}
-        - id: gianglt-service
-          uri: lb://gianglt-service
-          predicates:
-            - Path=/v1/gianglt/**
-          filters:
-            - RewritePath=/v1/gianglt/(?<path>.*), /$\{path}
-        - id: lolv-service
-          uri: lb://lolv-service
-          predicates:
-            - Path=/v1/lolv/**
-          filters:
-            - RewritePath=/v1/lolv/(?<path>.*), /$\{path}
-        - id: haind-service
-          uri: lb://haind-service
-          predicates:
-            - Path=/v1/haind/**
-          filters:
-            - RewritePath=/v1/haind/(?<path>.*), /$\{path}
         - id: qlcv-service
           uri: lb://qlcv-service
           predicates:
@@ -294,6 +276,18 @@ spring:
             - Path=/v1/chungthuc/**
           filters:
             - RewritePath=/v1/chungthuc/(?<path>.*), /$\{path}
+        - id: tr-catalog-service
+          uri: lb://tr-catalog-service
+          predicates:
+            - Path=/v1/cat/**
+          filters:
+            - RewritePath=/v1/cat/(?<path>.*), /$\{path}
+        - id: tr-nls-service
+          uri: lb://tr-nls-service
+          predicates:
+            - Path=/v1/nls/**
+          filters:
+            - RewritePath=/v1/nls/(?<path>.*), /$\{path}
         - id: qlnp-dev-service
           uri: lb://qlnp-dev-service
           predicates:
@@ -370,8 +364,6 @@ springdoc:
         url: /v3/api-docs/v1/qlnp
       - name: qlnp-dev
         url: /v3/api-docs/dev/qlnp
-      - name: gianglt
-        url: /v3/api-docs/v1/gianglt
       - name: linhnnx
         url: /v3/api-docs/v1/linhnnx
       - name: qlc
@@ -394,6 +386,10 @@ springdoc:
         url: /v3/api-docs/v1/snnptnt
       - name: tr-chungthuc
         url: /v3/api-docs/v1/chungthuc
+      - name: tr-catalog
+        url: /v3/api-docs/v1/cat
+      - name: tr-nls
+        url: /v3/api-docs/v1/nls
 
     filter: true
     disable-swagger-default-url: true
