@@ -156,8 +156,8 @@ spring:
             - Path=/v1/sldtbxh/**
           filters:
             - RewritePath=/v1/sldtbxh/(?<path>.*), /$\{path}
-        - id: danhgiacntt-service
-          uri: lb://danhgiacntt-service
+        - id: tr-danhgiacntt-service
+          uri: lb://tr-danhgiacntt-service
           predicates:
             - Path=/v1/danhgiacntt/**
           filters:
@@ -330,7 +330,7 @@ springdoc:
         url: /v3/api-docs/v1/sgtvt
       - name: tr-sct
         url: /v3/api-docs/v1/sct
-      - name: danhgiacntt
+      - name: tr-danhgiacntt
         url: /v3/api-docs/v1/danhgiacntt
       - name: sldtbxh
         url: /v3/api-docs/v1/sldtbxh
