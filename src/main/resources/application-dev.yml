@@ -380,8 +380,8 @@ springdoc:
         url: /v3/api-docs/v1/dn
       - name: dev
         url: /v3/api-docs/v1/dev
-      - name: baocao
-        url: /v3/api-docs/v1/baocao
+      - name: tr-baocao
+        url: /v3/api-docs/v1/bc
       - name: tr-snnptnt
         url: /v3/api-docs/v1/snnptnt
       - name: tr-chungthuc
