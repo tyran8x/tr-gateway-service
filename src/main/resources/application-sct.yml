@@ -19,15 +19,15 @@ spring:
             - id: tr-doanhnghiep-service
               uri: lb://tr-doanhnghiep-service
               predicates:
-                - Path=/v1/doanhnghiep/**
+                - Path=/v1/dn/**
               filters:
-                - RewritePath=/v1/doanhnghiep/(?<path>.*), /$\{path}
+                - RewritePath=/v1/dn/(?<path>.*), /$\{path}
             - id: tr-baocao-service
               uri: lb://tr-baocao-service
               predicates:
-                - Path=/v1/baocao/**
+                - Path=/v1/bc/**
               filters:
-                - RewritePath=/v1/baocao/(?<path>.*), /$\{path}
+                - RewritePath=/v1/bc/(?<path>.*), /$\{path}
             - id: tr-sct-service
               uri: lb://tr-sct-service
               predicates:
@@ -51,7 +51,7 @@ springdoc:
       - name: tr-baocao
         url: /v3/api-docs/v1/baocao
       - name: tr-doanhnghiep
-        url: /v3/api-docs/v1/doanhnghiep
+        url: /v3/api-docs/v1/dn
       - name: tr-sct
         url: /v3/api-docs/v1/sct
       - name: tr-notification
