@@ -1,0 +1,45 @@
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: tr-core-service
+              uri: lb://tr-core-service
+              predicates:
+                - Path=/v2/core/**
+              filters:
+                - RewritePath=/v2/core/(?<path>.*), /$\{path}
+            - id: tr-dm-service
+              uri: lb://tr-dm-service
+              predicates:
+                - Path=/v2/dm/**
+              filters:
+                - RewritePath=/v2/dm/(?<path>.*), /$\{path}
+            - id: tr-danhgiacntt-service
+              uri: lb://tr-danhgiacntt-service
+              predicates:
+                - Path=/v1/danhgiacntt/**
+              filters:
+                - RewritePath=/v1/danhgiacntt/(?<path>.*), /$\{path}
+            - id: tr-notification-service
+              uri: lb://tr-notification-service
+              predicates:
+                - Path=/v1/notification/**
+              filters:
+                - RewritePath=/v1/notification/(?<path>.*), /$\{path}
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: tr-core
+        url: /v3/api-docs/v2/core
+      - name: tr-dm
+        url: /v3/api-docs/v2/dm
+      - name: tr-danhgiacntt
+        url: /v3/api-docs/v1/danhgiacntt
+      - name: tr-notification
+        url: /v3/api-docs/v1/notification
+    urlsPrimaryName: tr-danhgiacntt
+
+
