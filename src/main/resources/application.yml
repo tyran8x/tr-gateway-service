@@ -67,10 +67,9 @@ eureka:
 
 logging:
   level:
-    vn.tr: ${LOGGING_LEVEL_VN_TR:DEBUG}
-    org.springframework: ${LOGGING_LEVEL_SPRINGFRAMEWORK:DEBUG}
-    reactor.netty: DEBUG
-    vn.tr.gateway: DEBUG
+    vn.tr: ${LOGGING_LEVEL_VN_TR:INFO}
+    org.springframework: ${LOGGING_LEVEL_SPRINGFRAMEWORK:INFO}
+    reactor.netty: INFO
   file:
     name: ${LOG_PATH:/opt/logs}/${spring.application.name:tr-gateway-service}/sys-info.log
   config: classpath:logback-spring.xml

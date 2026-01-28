@@ -11,9 +11,9 @@ import java.util.Arrays;
 
 @SpringBootApplication(scanBasePackages = {"vn.tr.gateway"})
 @EnableDiscoveryClient
-public class GatewayServiceApplication {
+public class TrGatewayServiceApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(GatewayServiceApplication.class, args);
+		SpringApplication.run(TrGatewayServiceApplication.class, args);
 	}
 	
 	@Bean
